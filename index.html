@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchasing a Central Heating System vs. Getting Off Oil | Greenfoot Energy Solutions</title>
+<style>
+:root {
+  --navy: #12324f; --navy-dark: #0b2138; --blue-light: #e8f2fb; --blue-mid: #cfe6f7;
+  --accent: #1f6fb2; --green: #1f8a5f; --green-light: #e7f7ef; --green-border: #28a36f;
+  --amber: #b3541e; --ink: #1c2b38; --muted: #5c7086; --border: #d6e3ee; --bg: #f2f7fb; --white: #fff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; }
+
+.header { background: linear-gradient(135deg, var(--navy), var(--navy-dark)); color: white; padding: 22px 32px 20px; }
+.header h1 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.header p  { font-size: 12.5px; color: #cfe1f0; }
+
+.page { max-width: 900px; margin: 0 auto; padding: 24px 20px 48px; }
+
+.section-label { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); margin: 22px 0 8px; }
+
+.input-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.input-table tr:nth-child(odd) td  { background: var(--blue-light); }
+.input-table tr:nth-child(even) td { background: var(--white); }
+.input-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.input-table td:first-child { width: 65%; }
+.input-table td:last-child  { width: 35%; }
+.input-table input[type="number"], .input-table input[type="text"] {
+  width: 100%; padding: 5px 9px; border: 1.5px solid var(--border); border-radius: 6px;
+  font-size: 13px; font-family: inherit; color: var(--ink); background: white;
+}
+.input-table input:focus { outline: none; border-color: var(--accent); }
+.yn { display: flex; gap: 10px; align-items: center; }
+.yn label { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--navy); cursor: pointer; }
+.yn input[type="radio"] { accent-color: var(--accent); }
+.note-row td { font-size: 11.5px !important; font-style: italic; color: var(--muted) !important; background: transparent !important; padding: 6px 14px 10px !important; border-bottom: none !important; }
+
+.hero-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 8px 0 0; }
+.hero-card { background: var(--green-light); border: 1.5px solid var(--green-border); border-radius: 10px; padding: 18px 14px; text-align: center; }
+.hero-card .hl { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.hero-card .hv { font-size: 32px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 3px; }
+.hero-card .hn { font-size: 11px; color: var(--muted); }
+
+.compare-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+.compare-table thead th { background: var(--blue-mid); color: var(--navy); font-size: 12px; font-weight: 800; padding: 10px 16px; text-align: left; }
+.compare-table thead th:not(:first-child) { text-align: center; }
+.compare-table tbody tr:nth-child(odd) td  { background: var(--blue-light); }
+.compare-table tbody tr:nth-child(even) td { background: var(--white); }
+.compare-table td { padding: 10px 16px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.compare-table td:not(:first-child) { text-align: center; }
+.row-label { font-weight: 600; color: var(--navy); }
+.row-hint  { font-size: 10.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.auto-cell { display: inline-flex; align-items: center; justify-content: center; gap: 4px; width: 100%; }
+.auto-val  { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; min-width: 70px; text-align: right; }
+.auto-unit { font-size: 11px; color: var(--muted); text-align: left; }
+.oil-val .auto-val { color: var(--amber); }
+.hp-val  .auto-val { color: var(--green); }
+.compare-note { font-size: 11px; font-style: italic; color: var(--muted); padding: 8px 16px 10px; background: transparent; border-top: 1px dashed var(--border); }
+
+.detail-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+.detail-table tr:nth-child(odd) td  { background: var(--blue-light); }
+.detail-table tr:nth-child(even) td { background: var(--white); }
+.detail-table td { padding: 8px 14px; font-size: 13px; border-bottom: 1px solid var(--border); }
+.detail-table td:last-child { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.detail-table .green-val td:last-child { color: var(--green); }
+
+.unit-card { border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+.unit-card-head { background: var(--blue-mid); padding: 7px 14px; display: flex; justify-content: space-between; align-items: center; }
+.unit-card-head input { background: none; border: none; font-weight: 800; font-size: 12.5px; color: var(--navy); font-family: inherit; cursor: text; width: 180px; }
+.unit-remove { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 700; padding: 2px 6px; }
+.unit-remove:hover { color: var(--amber); }
+.unit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; background: white; }
+.unit-grid .uf { padding: 9px 14px; border-right: 1px solid var(--border); }
+.unit-grid .uf:last-child { border-right: none; }
+.unit-grid .uf label { display: block; font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.unit-grid .uf input { width: 100%; padding: 5px 9px; border: 1.5px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; color: var(--ink); }
+.unit-grid .uf input:focus { outline: none; border-color: var(--accent); }
+.unit-grid .uf .hint { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+.add-unit-btn { width: 100%; padding: 9px; background: var(--blue-light); border: 1.5px dashed var(--accent); border-radius: 8px; color: var(--accent); font-size: 12.5px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+.add-unit-btn:hover { background: var(--blue-mid); }
+
+.chart-wrap { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px 10px; margin-top: 8px; }
+
+/* SAVE SECTION */
+.save-section { margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.save-head { background: var(--navy); color: white; padding: 11px 18px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.save-body { padding: 18px; }
+.save-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.save-field label { display: block; font-size: 11.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.save-field input, .save-field select {
+  width: 100%; padding: 7px 10px; border: 1.5px solid var(--border); border-radius: 7px;
+  font-size: 13px; font-family: inherit; color: var(--ink);
+}
+.save-field input:focus, .save-field select:focus { outline: none; border-color: var(--accent); }
+.save-btn {
+  width: 100%; padding: 13px; background: var(--green); color: white;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 800;
+  cursor: pointer; letter-spacing: .03em; transition: background .15s;
+}
+.save-btn:hover { background: var(--green-border); }
+.save-btn:disabled { background: var(--muted); cursor: not-allowed; }
+.save-status { margin-top: 10px; padding: 10px 14px; border-radius: 7px; font-size: 13px; font-weight: 600; display: none; }
+.save-status.success { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+.save-status.error   { background: #fbeee3; color: var(--amber); border: 1px solid #e0956a; }
+.save-status.loading { background: var(--blue-light); color: var(--accent); border: 1px solid var(--blue-mid); }
+
+.footnote { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 16px; line-height: 1.5; border-top: 1px solid var(--border); padding-top: 12px; }
+
+/* SETUP BANNER */
+.setup-banner { background: #fff8e1; border: 1.5px solid #f0c040; border-radius: 8px; padding: 14px 16px; margin-bottom: 18px; font-size: 12.5px; color: #7a5c00; line-height: 1.6; }
+.setup-banner strong { color: #5a3e00; }
+.setup-banner code { background: #fef3c7; padding: 1px 5px; border-radius: 3px; font-size: 11.5px; font-family: monospace; }
+
+@media (max-width:640px) {
+  .hero-row { grid-template-columns: 1fr; }
+  .unit-grid { grid-template-columns: 1fr; }
+  .unit-grid .uf { border-right: none; border-bottom: 1px solid var(--border); }
+  .save-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Purchasing a Central Heating System vs. Getting Off Oil</h1>
+  <p>Your cost comparison and return-on-investment worksheet — Greenfoot Energy Solutions</p>
+</div>
+
+<div class="page">
+
+  <!-- SETUP NOTICE -->
+  <div class="setup-banner" id="setupBanner">
+    <strong>⚙ One-time setup required to enable Save to Google Sheets:</strong><br>
+    Open the spreadsheet → Extensions → Apps Script → paste the script from the included
+    <code>google-apps-script.js</code> file → click Deploy → Copy the Web App URL →
+    paste it in the field at the bottom of this page under "Save This Quote."
+  </div>
+
+  <!-- YOUR NUMBERS -->
+  <div class="section-label">Your Numbers</div>
+  <table class="input-table">
+    <tr><td>Annual oil use (litres)</td>
+        <td><input type="number" id="oilL" value="2500" min="100" max="10000" step="50" oninput="calc()"></td></tr>
+    <tr><td>Oil price ($/litre)</td>
+        <td><input type="number" id="oilP" value="1.35" min="0.50" max="3.00" step="0.01" oninput="calc()"></td></tr>
+    <tr><td>Furnace age (years) — used to estimate efficiency</td>
+        <td><input type="number" id="furnAge" value="15" min="1" max="40" step="1" oninput="calc()"></td></tr>
+    <tr><td>Annual oil system maintenance cost ($)</td>
+        <td><input type="number" id="oilMaint" value="350" min="0" max="2000" step="25" oninput="calc()"></td></tr>
+    <tr><td>Is your furnace or tank already due for replacement?</td>
+        <td><div class="yn">
+          <label><input type="radio" name="replace" value="yes" onchange="toggleReplace(true)"> Yes</label>
+          <label><input type="radio" name="replace" value="no" onchange="toggleReplace(false)" checked> No</label>
+        </div></td></tr>
+    <tr id="row_newFurn" style="display:none;"><td>If yes — new furnace cost ($)</td>
+        <td><input type="number" id="newFurn" value="5500" min="0" max="20000" step="100" oninput="calc()"></td></tr>
+    <tr id="row_newTank" style="display:none;"><td>If yes — new oil tank cost ($)</td>
+        <td><input type="number" id="newTank" value="2200" min="0" max="8000" step="50" oninput="calc()"></td></tr>
+    <tr id="row_tankFill" style="display:none;"><td>If yes — initial tank fill cost ($)</td>
+        <td><input type="number" id="tankFill" value="750" min="0" max="3000" step="25" oninput="calc()"></td></tr>
+    <tr><td>Heat pump electricity price ($/kWh)</td>
+        <td><input type="number" id="elecP" value="0.1245" min="0.05" max="0.50" step="0.001" oninput="calc()"></td></tr>
+    <tr><td>Rebates &amp; incentives ($)</td>
+        <td><input type="number" id="rebate" value="3000" min="0" max="20000" step="100" oninput="calc()"></td></tr>
+    <tr><td>Electrical upgrade cost, if required ($)</td>
+        <td><input type="number" id="elecUpg" value="0" min="0" max="10000" step="100" oninput="calc()"></td></tr>
+    <tr><td>Annual heat pump maintenance cost ($)</td>
+        <td><input type="number" id="hpMaint" value="200" min="0" max="1000" step="25" oninput="calc()"></td></tr>
+    <tr class="note-row"><td colspan="2">That's all we need from you — your Home Comfort Advisor takes care of the rest, including how efficiently your current furnace and the quoted heat pump perform through a real winter.</td></tr>
+  </table>
+
+  <!-- HEAT PUMP UNITS -->
+  <div class="section-label">Heat Pump Unit(s)</div>
+  <div>
+    <div id="unitList"></div>
+    <button class="add-unit-btn" onclick="addUnit()">+ Add another unit / zone</button>
+  </div>
+
+  <!-- WHAT THAT MEANS FOR YOU -->
+  <div class="section-label">What That Means for You</div>
+  <div class="hero-row">
+    <div class="hero-card"><div class="hl">Annual Savings</div><div class="hv" id="r_ann">—</div><div class="hn">vs. oil heating</div></div>
+    <div class="hero-card"><div class="hl">Payback Period</div><div class="hv" id="r_pay">—</div><div class="hn">to earn back your investment</div></div>
+    <div class="hero-card"><div class="hl">10-Year Savings</div><div class="hv" id="r_10y">—</div><div class="hn">over the next decade</div></div>
+  </div>
+
+  <!-- HOW YOUR HEATING SYSTEM COMPARES -->
+  <div class="section-label">How Your Heating System Compares</div>
+  <table class="compare-table">
+    <thead><tr><th style="width:36%"></th><th>Oil Furnace</th><th>Central Heat Pump</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="row-label">Energy used</div><div class="row-hint">Calculated from your annual oil use and heat demand</div></td>
+        <td class="oil-val"><div class="auto-cell"><span class="auto-val" id="c_oilEnergy">—</span><span class="auto-unit">litres/yr</span></div></td>
+        <td class="hp-val"><div class="auto-cell"><span class="auto-val" id="c_hpEnergy">—</span><span class="auto-unit">kWh/yr</span></div></td>
+      </tr>
+      <tr>
+        <td><div class="row-label">Heating efficiency</div><div class="row-hint">AFUE estimated from furnace age · SCOP from your unit quote</div></td>
+        <td class="oil-val"><div class="auto-cell"><span class="auto-val" id="c_oilEff">—</span><span class="auto-unit">% AFUE</span></div></td>
+        <td class="hp-val"><div class="auto-cell"><span class="auto-val" id="c_hpEff">—</span><span class="auto-unit">SCOP</span></div></td>
+      </tr>
+      <tr>
+        <td><div class="row-label">Annual heating cost</div><div class="row-hint">Fuel cost only, before maintenance</div></td>
+        <td class="oil-val"><div class="auto-cell"><span class="auto-unit">$</span><span class="auto-val" id="c_oilCost">—</span><span class="auto-unit">/yr</span></div></td>
+        <td class="hp-val"><div class="auto-cell"><span class="auto-unit">$</span><span class="auto-val" id="c_hpCost">—</span><span class="auto-unit">/yr</span></div></td>
+      </tr>
+      <tr>
+        <td><div class="row-label">Annual total cost</div><div class="row-hint">Fuel + maintenance combined</div></td>
+        <td class="oil-val"><div class="auto-cell"><span class="auto-unit">$</span><span class="auto-val" id="c_oilTotal">—</span><span class="auto-unit">/yr</span></div></td>
+        <td class="hp-val"><div class="auto-cell"><span class="auto-unit">$</span><span class="auto-val" id="c_hpTotal">—</span><span class="auto-unit">/yr</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="compare-note">All values update automatically as you change your numbers above.</div>
+
+  <!-- DETAIL RESULTS -->
+  <table class="detail-table" style="margin-top:16px;">
+    <tbody>
+      <tr><td>Current annual oil heating cost (fuel + maintenance)</td><td id="d_oilCost">—</td></tr>
+      <tr><td>Estimated annual heat pump heating cost (electricity + maintenance)</td><td id="d_hpCost">—</td></tr>
+      <tr><td>Percent savings on heating costs</td><td id="d_pct">—</td></tr>
+      <tr class="green-val"><td>Net heat pump investment (after rebates, minus avoided furnace/tank cost)</td><td id="d_net">—</td></tr>
+    </tbody>
+  </table>
+
+  <!-- CHART -->
+  <div class="section-label">20-Year Cumulative Cost</div>
+  <div class="chart-wrap"><canvas id="costChart" height="90"></canvas></div>
+
+  <!-- SAVE SECTION -->
+  <div class="save-section">
+    <div class="save-head">💾 Save This Quote to Google Sheets</div>
+    <div class="save-body">
+      <div class="save-grid">
+        <div class="save-field">
+          <label>Customer Name</label>
+          <input type="text" id="s_name" placeholder="e.g. John Smith">
+        </div>
+        <div class="save-field">
+          <label>Customer Phone / Email</label>
+          <input type="text" id="s_contact" placeholder="e.g. 506-555-1234">
+        </div>
+        <div class="save-field">
+          <label>Customer Address / City</label>
+          <input type="text" id="s_address" placeholder="e.g. Moncton, NB">
+        </div>
+        <div class="save-field">
+          <label>Province / Region</label>
+          <select id="s_region">
+            <option>NB — New Brunswick</option>
+            <option>NS — Nova Scotia</option>
+            <option>PEI — Prince Edward Island</option>
+            <option>NL — Newfoundland</option>
+            <option>BC — British Columbia</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="save-field">
+          <label>Home Comfort Advisor</label>
+          <input type="text" id="s_hca" placeholder="Advisor name">
+        </div>
+        <div class="save-field">
+          <label>Quote Status</label>
+          <select id="s_status">
+            <option>Initial Estimate</option>
+            <option>Formal Quote</option>
+            <option>Sold</option>
+            <option>Lost</option>
+            <option>Follow-up Required</option>
+          </select>
+        </div>
+        <div class="save-field" style="grid-column: 1/-1;">
+          <label>Notes</label>
+          <input type="text" id="s_notes" placeholder="Any additional notes about this quote...">
+        </div>
+        <div class="save-field" style="grid-column: 1/-1;">
+          <label>Google Apps Script Web App URL <span style="font-weight:400;color:var(--muted);">(paste after one-time setup)</span></label>
+          <input type="text" id="s_scriptUrl" placeholder="https://script.google.com/macros/s/.../exec"
+                 oninput="localStorage.setItem('gasUrl', this.value)">
+        </div>
+      </div>
+      <button class="save-btn" onclick="saveToSheet()">Save Quote to Google Sheets →</button>
+      <div class="save-status" id="saveStatus"></div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    Estimates only. Actual savings depend on home insulation, system sizing, and real winter weather. Furnace efficiency (AFUE) is estimated from age. Heat pump seasonal performance (SCOP) is entered per unit from your advisor's quote.
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ── State ────────────────────────────────────────────────────
+let units = [], uc = 0, chart;
+let lastResults = {};
+
+// Restore saved script URL
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('gasUrl');
+  if (saved) document.getElementById('s_scriptUrl').value = saved;
+});
+
+// ── Helpers ──────────────────────────────────────────────────
+const fmt  = n => "$" + Math.round(Math.abs(n)).toLocaleString("en-CA");
+const fmtN = n => Math.round(n).toLocaleString("en-CA");
+const set  = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+function afue(age) {
+  if (age <= 5)  return 0.92;
+  if (age <= 12) return 0.87;
+  if (age <= 20) return 0.82;
+  if (age <= 25) return 0.72;
+  return 0.65;
+}
+
+function toggleReplace(yes) {
+  ["row_newFurn","row_newTank","row_tankFill"].forEach(id =>
+    document.getElementById(id).style.display = yes ? "" : "none");
+  calc();
+}
+
+// ── Units ────────────────────────────────────────────────────
+function addUnit(d) {
+  uc++;
+  units.push(d || { id: uc, name: "Unit " + uc, cost: 9500, scop: 2.9, notes: "" });
+  renderUnits(); calc();
+}
+function removeUnit(id) { units = units.filter(u => u.id !== id); renderUnits(); calc(); }
+function setU(id, key, val) { const u = units.find(u => u.id === id); if (u) { u[key] = val; calc(); } }
+function renderUnits() {
+  const list = document.getElementById("unitList");
+  list.innerHTML = "";
+  units.forEach(u => {
+    const div = document.createElement("div");
+    div.className = "unit-card";
+    div.innerHTML = `
+      <div class="unit-card-head">
+        <input value="${u.name}" onchange="setU(${u.id},'name',this.value)" title="Click to rename">
+        ${units.length > 1 ? `<button class="unit-remove" onclick="removeUnit(${u.id})">✕ Remove</button>` : ""}
+      </div>
+      <div class="unit-grid">
+        <div class="uf">
+          <label>System + installation cost ($)</label>
+          <input type="number" value="${u.cost}" min="500" max="60000" step="100" oninput="setU(${u.id},'cost',+this.value)">
+        </div>
+        <div class="uf">
+          <label>Seasonal performance (SCOP)</label>
+          <input type="number" value="${u.scop}" min="1.5" max="5.0" step="0.1" oninput="setU(${u.id},'scop',+this.value)">
+          <div class="hint">From your advisor's quote. Typical: 2.5–3.5</div>
+        </div>
+        <div class="uf">
+          <label>Zone / notes</label>
+          <input type="text" value="${u.notes||''}" placeholder="e.g. Main floor" oninput="setU(${u.id},'notes',this.value)">
+        </div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+// ── Main Calc ────────────────────────────────────────────────
+function calc() {
+  const oilL    = +document.getElementById("oilL").value    || 0;
+  const oilP    = +document.getElementById("oilP").value    || 0;
+  const age     = +document.getElementById("furnAge").value || 15;
+  const oilMnt  = +document.getElementById("oilMaint").value|| 0;
+  const elecP   = +document.getElementById("elecP").value   || 0;
+  const rebate  = +document.getElementById("rebate").value  || 0;
+  const elecUpg = +document.getElementById("elecUpg").value || 0;
+  const hpMnt   = +document.getElementById("hpMaint").value || 0;
+  const doRepl  = document.querySelector('input[name="replace"]:checked')?.value === "yes";
+  const newFurn = doRepl ? (+document.getElementById("newFurn").value || 0) : 0;
+  const newTank = doRepl ? (+document.getElementById("newTank").value || 0) : 0;
+  const tankFill= doRepl ? (+document.getElementById("tankFill").value|| 0) : 0;
+
+  if (!units.length) return;
+
+  const E_OIL = 10.35;
+  const a = afue(age);
+
+  const usefulHeat  = oilL * E_OIL * a;
+  const oilFuelCost = oilL * oilP;
+  const oilTotalAnn = oilFuelCost + oilMnt;
+
+  const totalUnitCost = units.reduce((s, u) => s + (u.cost || 0), 0);
+  const scop = totalUnitCost > 0
+    ? units.reduce((s, u) => s + (u.scop || 2.9) * ((u.cost || 0) / totalUnitCost), 0)
+    : (units[0]?.scop || 2.9);
+  const hpKwh      = usefulHeat / scop;
+  const hpFuelCost = hpKwh * elecP;
+  const hpTotalAnn = hpFuelCost + hpMnt;
+
+  const annSav  = oilTotalAnn - hpTotalAnn;
+  const pct     = oilTotalAnn > 0 ? (annSav / oilTotalAnn) * 100 : 0;
+  const avoided = doRepl ? (newFurn + newTank + tankFill) : 0;
+  const netInv  = Math.max(0, totalUnitCost + elecUpg - rebate - avoided);
+  const payback = annSav > 0 ? netInv / annSav : Infinity;
+
+  const YRS = 20; const labels = [], oilC = [], hpC = [];
+  let oR = doRepl ? avoided : 0;
+  let hR = totalUnitCost + elecUpg - rebate;
+  for (let y = 0; y <= YRS; y++) {
+    labels.push(y === 0 ? "Today" : "Yr " + y);
+    oilC.push(Math.round(oR)); hpC.push(Math.round(hR));
+    oR += oilTotalAnn; hR += hpTotalAnn;
+  }
+  const sav10 = oilC[10] - hpC[10];
+
+  // Store results for saving
+  lastResults = {
+    oilL, oilP, age, afuePct: Math.round(a * 100), oilMnt,
+    doRepl: doRepl ? "Yes" : "No", newFurn, newTank, tankFill,
+    elecP, rebate, elecUpg, hpMnt,
+    units: units.map(u => `${u.name}: $${u.cost}, SCOP ${u.scop}${u.notes ? ' ('+u.notes+')' : ''}`).join(" | "),
+    totalUnitCost, scop: scop.toFixed(2),
+    oilFuelCost: Math.round(oilFuelCost),
+    hpFuelCost:  Math.round(hpFuelCost),
+    oilTotalAnn: Math.round(oilTotalAnn),
+    hpTotalAnn:  Math.round(hpTotalAnn),
+    annSav:      Math.round(annSav),
+    pct:         Math.round(pct),
+    netInv:      Math.round(netInv),
+    payback:     isFinite(payback) ? payback.toFixed(1) : "N/A",
+    sav10:       Math.round(sav10),
+    hpKwh:       Math.round(hpKwh),
+    usefulHeat:  Math.round(usefulHeat),
+    avoided:     Math.round(avoided)
+  };
+
+  // DOM updates
+  set("r_ann", fmt(annSav));
+  set("r_pay", isFinite(payback) ? payback.toFixed(1) + " yrs" : "N/A");
+  set("r_10y", fmt(sav10));
+  set("c_oilEnergy", fmtN(oilL));
+  set("c_hpEnergy",  fmtN(hpKwh));
+  set("c_oilEff",    Math.round(a * 100));
+  set("c_hpEff",     scop.toFixed(1));
+  set("c_oilCost",   fmtN(oilFuelCost));
+  set("c_hpCost",    fmtN(hpFuelCost));
+  set("c_oilTotal",  fmtN(oilTotalAnn));
+  set("c_hpTotal",   fmtN(hpTotalAnn));
+  set("d_oilCost",   fmt(oilTotalAnn) + "/yr");
+  set("d_hpCost",    fmt(hpTotalAnn) + "/yr");
+  set("d_pct",       Math.round(pct) + "%");
+  set("d_net",       fmt(netInv));
+
+  const ctx = document.getElementById("costChart").getContext("2d");
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: "line",
+    data: { labels, datasets: [
+      { label: "Stay on Oil",         data: oilC, borderColor: "#b3541e", backgroundColor: "rgba(179,84,30,.07)", borderWidth: 2.5, tension: .2, fill: true, pointRadius: 2 },
+      { label: "Switch to Heat Pump", data: hpC,  borderColor: "#1f8a5f", backgroundColor: "rgba(31,138,95,.08)", borderWidth: 2.5, tension: .2, fill: true, pointRadius: 2 }
+    ]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 14, font: { size: 12 } } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ": $" + Math.round(c.raw).toLocaleString("en-CA") } }
+      },
+      scales: { y: { ticks: { callback: v => "$" + (v / 1000).toFixed(0) + "k" } } }
+    }
+  });
+}
+
+// ── Save to Sheet ────────────────────────────────────────────
+async function saveToSheet() {
+  const scriptUrl = document.getElementById("s_scriptUrl").value.trim();
+  const statusEl  = document.getElementById("saveStatus");
+
+  if (!scriptUrl || !scriptUrl.includes("script.google.com")) {
+    statusEl.className = "save-status error";
+    statusEl.style.display = "block";
+    statusEl.textContent = "⚠ Please paste your Google Apps Script Web App URL in the field above first.";
+    return;
+  }
+
+  const payload = {
+    timestamp:   new Date().toLocaleString("en-CA"),
+    customerName:    document.getElementById("s_name").value,
+    contact:         document.getElementById("s_contact").value,
+    address:         document.getElementById("s_address").value,
+    region:          document.getElementById("s_region").value,
+    hca:             document.getElementById("s_hca").value,
+    status:          document.getElementById("s_status").value,
+    notes:           document.getElementById("s_notes").value,
+    ...lastResults
+  };
+
+  statusEl.className = "save-status loading";
+  statusEl.style.display = "block";
+  statusEl.textContent = "Saving…";
+  document.querySelector(".save-btn").disabled = true;
+
+  try {
+    const res = await fetch(scriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    // no-cors means we can't read the response body, but if it didn't throw it sent
+    statusEl.className = "save-status success";
+    statusEl.textContent = "✓ Quote saved to Google Sheets successfully!";
+  } catch (err) {
+    statusEl.className = "save-status error";
+    statusEl.textContent = "✕ Save failed. Check your Apps Script URL and try again.";
+  } finally {
+    document.querySelector(".save-btn").disabled = false;
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────────
+addUnit({ id: 1, name: "Unit 1", cost: 9500, scop: 2.9, notes: "" });
+</script>
+</body>
+</html>
